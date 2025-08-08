@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Editra Co. — AI Courses, Portraits & Photo Restoration</title>
+  <meta name="description" content="Simple AI for adults: easy courses, AI portraits, and old photo restoration. No experience needed." />
+
+  <!-- Font: safe, legible stack (no external dependency needed) -->
+  <style>
+    :root{
+      --bg:#E4E4E6;           /* background */
+      --ink:#0E100F;          /* primary text */
+      --accent:#19433C;       /* subtle accents */
+      --card:#ffffff;
+      --muted:#5b5f5e;
+      --ring: rgba(25,67,60,.35);
+      --radius:14px;
+      --shadow: 0 10px 30px rgba(14,16,15,.08);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif}
+    img{max-width:100%;height:auto;display:block}
+    a{color:var(--ink);text-decoration:none}
+    .container{width:min(1120px, 92%);margin-inline:auto}
+
+    /* Header */
+    header{position:sticky;top:0;background:linear-gradient(to bottom, rgba(228,228,230,.95), rgba(228,228,230,.75));backdrop-filter:saturate(180%) blur(6px);border-bottom:1px solid rgba(25,67,60,.08);z-index:20}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{
+      width:36px;height:36px;border-radius:9px;background:conic-gradient(from 210deg at 50% 50%, var(--accent), #0E100F 60%, var(--accent) 100%);
+      box-shadow:inset 0 0 0 2px rgba(255,255,255,.45), 0 6px 14px rgba(14,16,15,.12);
+    }
+    .brand b{font-size:1.05rem;letter-spacing:.2px}
+    .nav a.cta{padding:10px 16px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;box-shadow:0 6px 16px rgba(25,67,60,.22)}
+    .nav .links{display:flex;gap:18px;align-items:center}
+    .nav .links a{opacity:.9}
+    .nav .links a:hover{opacity:1;text-decoration:underline}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.2fr .9fr;gap:32px;align-items:center;padding:54px 0 22px}
+    .eyebrow{display:inline-flex;gap:8px;align-items:center;font-weight:600;color:var(--accent);background:rgba(25,67,60,.08);border:1px solid rgba(25,67,60,.18);padding:8px 12px;border-radius:999px}
+    h1{font-size: clamp(28px, 4vw, 44px);line-height:1.1;margin:14px 0 10px;letter-spacing:-.5px}
+    .sub{font-size: clamp(16px, 2.1vw, 20px);color:var(--muted);max-width:48ch}
+    .cta-row{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 18px;border-radius:12px;border:1px solid rgba(14,16,15,.12);background:var(--card);box-shadow:var(--shadow);font-weight:600}
+    .btn.primary{background:var(--accent);color:#fff;border-color:transparent}
+    .trust{display:flex;gap:22px;margin-top:16px;color:#3b3f3e;font-size:.98rem;flex-wrap:wrap}
+    .trust span{display:inline-flex;gap:8px;align-items:center}
+
+    /* Mock hero visual */
+    .hero-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border:1px solid rgba(14,16,15,.08)}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .ph{aspect-ratio: 4/3;background:linear-gradient(135deg, rgba(25,67,60,.12), rgba(14,16,15,.06));border-radius:12px;position:relative;overflow:hidden}
+    .ph:after{content:"";position:absolute;inset:0;background:radial-gradient(1200px 400px at -10% -30%, rgba(255,255,255,.65), transparent 40%), radial-gradient(600px 200px at 120% 120%, rgba(25,67,60,.12), transparent 40%)}
+    .caption{font-size:.9rem;color:var(--muted);margin-top:6px}
+
+    /* Sections */
+    section{padding:56px 0}
+    h2{font-size: clamp(22px, 3vw, 32px);margin:0 0 16px}
+    .lead{color:var(--muted);max-width:62ch}
+
+    /* Feature cards */
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}
+    .card{background:var(--card);border:1px solid rgba(14,16,15,.08);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 6px;font-size:1.1rem}
+    .pill{display:inline-block;font-size:.8rem;color:var(--accent);background:rgba(25,67,60,.08);border:1px solid rgba(25,67,60,.18);padding:6px 10px;border-radius:999px;margin-bottom:8px}
+
+    /* Pricing */
+    .pricing{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:18px;margin-top:22px}
+    .price{display:flex;align-items:flex-start;justify-content:space-between}
+    .price strong{font-size:1.8rem}
+    .price small{color:var(--muted);font-weight:600}
+    ul.bullets{padding-left:18px;margin:10px 0 0}
+    ul.bullets li{margin:6px 0}
+    .card .cta-block{margin-top:14px}
+
+    /* Steps */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+    .step-num{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:inline-grid;place-items:center;font-weight:700;margin-bottom:8px}
+
+    /* Testimonials */
+    .testimonials{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:20px}
+    blockquote{margin:0}
+    blockquote p{margin:0 0 10px}
+    .who{color:var(--muted);font-size:.95rem}
+
+    /* FAQ */
+    .faq{margin-top:16px}
+    .qa{background:var(--card);border:1px solid rgba(14,16,15,.08);border-radius:12px;margin-bottom:10px;overflow:hidden}
+    .qa button{all:unset;display:flex;justify-content:space-between;gap:20px;width:100%;padding:16px;cursor:pointer}
+    .qa button:focus{outline:3px solid var(--ring);outline-offset:-3px}
+    .qa .answer{display:none;padding:0 16px 16px;color:var(--muted)}
+
+    /* Footer */
+    footer{padding:36px 0;border-top:1px solid rgba(25,67,60,.12);color:#3b3f3e}
+    .foot{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+    .foot small{opacity:.9}
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr;gap:20px}
+      .features{grid-template-columns:1fr 1fr}
+      .pricing{grid-template-columns:1fr 1fr}
+      .steps{grid-template-columns:1fr}
+      .testimonials{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .features,.pricing,.testimonials{grid-template-columns:1fr}
+      .nav .links{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header aria-label="Top Navigation">
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <b>Editra Co.</b>
+      </div>
+      <nav class="links" aria-label="Primary">
+        <a href="#courses">Courses</a>
+        <a href="#portraits">AI Portraits</a>
+        <a href="#restoration">Restoration</a>
+        <a href="#pricing" class="cta" aria-label="See pricing and start">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="container hero" id="home">
+      <div>
+        <span class="eyebrow" aria-label="Welcome badge">✨ Simple AI for curious adults</span>
+        <h1>Learn, create & restore — without being “techy”.</h1>
+        <p class="sub">We teach you AI content creation step-by-step and do the tricky parts for you: AI portraits, short animations, and careful restoration of old family photos.</p>
+        <div class="cta-row">
+          <a class="btn primary" href="#pricing" aria-label="Start the subscription for 20 dollars per month">Start for $20/mo</a>
+          <a class="btn" href="#pricing" aria-label="Buy AI portrait pack for 10 dollars">Try a $10 portrait pack</a>
+        </div>
+        <div class="trust" role="list" aria-label="Reassurances">
+          <span role="listitem">✅ No experience needed</span>
+          <span role="listitem">📱 Works on phone & computer</span>
+          <span role="listitem">🕑 Friendly support</span>
+          <span role="listitem">🔒 Your photos stay private</span>
+        </div>
+      </div>
+
+      <!-- Visual mock (replace with your imagery later) -->
+      <aside class="hero-card" aria-label="Preview gallery">
+        <div class="hero-grid">
+          <figure class="ph" aria-label="AI portrait sample"></figure>
+          <figure class="ph" aria-label="Animation sample"></figure>
+          <figure class="ph" aria-label="Course screen sample"></figure>
+          <figure class="ph" aria-label="Old photo restoration sample"></figure>
+        </div>
+        <div class="caption">Preview: portraits, small animations, lessons & restorations (placeholders shown).</div>
+      </aside>
+    </section>
+
+    <!-- WHAT YOU GET -->
+    <section class="container" id="courses" aria-labelledby="what-get">
+      <h2 id="what-get">What you get</h2>
+      <p class="lead">Practical lessons, patient guidance, and done-for-you services. Everything is explained in clear language with short videos and checklists.</p>
+
+      <div class="features" role="list">
+        <article class="card" role="listitem">
+          <span class="pill">Courses</span>
+          <h3>AI Content Creation</h3>
+          <p>Learn to plan, generate, and post eye-catching content with modern AI tools. We keep it simple and repeatable.</p>
+          <ul class="bullets">
+            <li>Step-by-step videos</li>
+            <li>Beginner-friendly templates</li>
+            <li>Weekly Q&A</li>
+          </ul>
+        </article>
+
+        <article class="card" role="listitem" id="portraits">
+          <span class="pill">Portraits</span>
+          <h3>AI-Generated Portraits</h3>
+          <p>Send a few photos; we return polished portraits—great for social profiles, gifts, or keepsakes.</p>
+          <ul class="bullets">
+            <li>Natural skin tones</li>
+            <li>Multiple styles to choose</li>
+            <li>Private & secure</li>
+          </ul>
+        </article>
+
+        <article class="card" role="listitem" id="restoration">
+          <span class="pill">Restoration</span>
+          <h3>Old Photo Restoration</h3>
+          <p>We carefully repair scratches, fade, and dust. Preserve family history with respect and accuracy.</p>
+          <ul class="bullets">
+            <li>Color & contrast fixes</li>
+            <li>Tear & scratch repair</li>
+            <li>Digital delivery</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="container" id="pricing" aria-labelledby="pricing-title">
+      <h2 id="pricing-title">Clear, simple pricing</h2>
+      <p class="lead">Start small, add more when you’re ready. No hidden fees.</p>
+
+      <div class="pricing" role="list">
+        <!-- Subscription -->
+        <article class="card" role="listitem" aria-label="AI course subscription">
+          <div class="price">
+            <h3>Courses Membership</h3>
+            <div><strong>$20</strong><small>/month</small></div>
+          </div>
+          <p>Unlimited access to all AI content creation courses.</p>
+          <ul class="bullets">
+            <li>Beginner → intermediate lessons</li>
+            <li>Downloadable checklists</li>
+            <li>Community & weekly Q&A</li>
+            <li>Cancel anytime</li>
+          </ul>
+          <div class="cta-block">
+            <a class="btn primary" href="#cta">Start learning</a>
+          </div>
+        </article>
+
+        <!-- Portraits -->
+        <article class="card" role="listitem" aria-label="AI portraits package">
+          <div class="price">
+            <h3>AI Portraits</h3>
+            <div><strong>$10</strong><small>/10 photos</small></div>
+          </div>
+          <p>Ten polished AI portraits from your uploaded photos.</p>
+          <ul class="bullets">
+            <li>Choose styles you like</li>
+            <li>Natural & tasteful edits</li>
+            <li>48–72h turnaround</li>
+          </ul>
+          <div class="cta-block">
+            <a class="btn" href="#cta">Order portraits</a>
+          </div>
+        </article>
+
+        <!-- Animations -->
+        <article class="card" role="listitem" aria-label="AI animated pictures package">
+          <div class="price">
+            <h3>AI Animated Pics</h3>
+            <div><strong>$10</strong><small>/5 animations</small></div>
+          </div>
+          <p>Bring 5 photos to life with gentle, looped motion.</p>
+          <ul class="bullets">
+            <li>Subtle, elegant movement</li>
+            <li>Ready for social media</li>
+            <li>72h turnaround</li>
+          </ul>
+          <div class="cta-block">
+            <a class="btn" href="#cta">Animate my photos</a>
+          </div>
+        </article>
+
+        <!-- Restoration -->
+        <article class="card" role="listitem" aria-label="Old photo restoration package">
+          <div class="price">
+            <h3>Photo Restoration</h3>
+            <div><strong>$10</strong><small>/10 restorations</small></div>
+          </div>
+          <p>Restore color and detail to 10 old photographs.</p>
+          <ul class="bullets">
+            <li>Scratch & tear repair</li>
+            <li>Color correction</li>
+            <li>High-res downloads</li>
+          </ul>
+          <div class="cta-block">
+            <a class="btn" href="#cta">Restore my photos</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="container" aria-labelledby="how">
+      <h2 id="how">How it works</h2>
+      <div class="steps" role="list">
+        <article class="card" role="listitem">
+          <div class="step-num" aria-hidden="true">1</div>
+          <h3>Create your account</h3>
+          <p>It takes two minutes. Pick the $20/mo courses, a $10 service pack, or both.</p>
+        </article>
+        <article class="card" role="listitem">
+          <div class="step-num" aria-hidden="true">2</div>
+          <h3>Upload & choose</h3>
+          <p>Use our simple uploader. Select a style (for portraits/animations) or “restore faithfully”.</p>
+        </article>
+        <article class="card" role="listitem">
+          <div class="step-num" aria-hidden="true">3</div>
+          <h3>Receive & enjoy</h3>
+          <p>We deliver to your inbox. In courses, follow short lessons and use ready-made templates.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="container" aria-labelledby="kind-words">
+      <h2 id="kind-words">Kind words from learners</h2>
+      <div class="testimonials">
+        <article class="card">
+          <blockquote>
+            <p>“I’m 57 and not tech-savvy. The lessons were short, friendly, and I made my first AI post in one afternoon.”</p>
+            <div class="who">— Maria G.</div>
+          </blockquote>
+        </article>
+        <article class="card">
+          <blockquote>
+            <p>“The portrait pack was a steal. My kids chose the styles; results looked natural, not fake.”</p>
+            <div class="who">— Daniel P.</div>
+          </blockquote>
+        </article>
+        <article class="card">
+          <blockquote>
+            <p>“They repaired my grandparents’ wedding photo beautifully. Worth it for the memories alone.”</p>
+            <div class="who">— Aisha R.</div>
+          </blockquote>
+        </article>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="container" aria-labelledby="faq">
+      <h2 id="faq">Frequently asked questions</h2>
+      <div class="faq" id="faq-accordion">
+        <div class="qa">
+          <button aria-expanded="false">
+            <span>Do I need any prior experience?</span>
+            <span aria-hidden="true">＋</span>
+          </button>
+          <div class="answer">No. We built everything for beginners. You’ll get clear steps, plain language, and templates.</div>
+        </div>
+        <div class="qa">
+          <button aria-expanded="false">
+            <span>How do I send photos safely?</span>
+            <span aria-hidden="true">＋</span>
+          </button>
+          <div class="answer">Use our encrypted uploader from your phone or computer. We never share your images.</div>
+        </div>
+        <div class="qa">
+          <button aria-expanded="false">
+            <span>Can I cancel the course subscription?</span>
+            <span aria-hidden="true">＋</span>
+          </button>
+          <div class="answer">Yes, anytime from your account page. You’ll keep access until the end of the billing period.</div>
+        </div>
+        <div class="qa">
+          <button aria-expanded="false">
+            <span>How fast is delivery?</span>
+            <span aria-hidden="true">＋</span>
+          </button>
+          <div class="answer">Portraits in 48–72 hours, animations in ~72 hours, and restorations in 72–96 hours depending on complexity.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="container" id="cta" aria-labelledby="start">
+      <h2 id="start">Ready to try AI—without the headache?</h2>
+      <p class="lead">Join the course for <b>$20/month</b>, or start with a <b>$10</b> portrait, animation, or restoration pack.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#" aria-label="Create account and start">Create my account</a>
+        <a class="btn" href="#" aria-label="Contact support on WhatsApp">Chat with us on WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <b>YourBrand Co.</b>
+      </div>
+      <small>© <span id="yr"></span> YourBrand Co. • Privacy • Terms • help@yourbrand.co</small>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // FAQ accordion (accessible)
+    document.querySelectorAll('.qa button').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', !expanded);
+        const answer = btn.parentElement.querySelector('.answer');
+        answer.style.display = expanded ? 'none' : 'block';
+      });
+    });
+  </script>
+</body>
+</html>
